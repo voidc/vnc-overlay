@@ -31,6 +31,7 @@ pub type ClientId = usize;
 pub trait State: Send + Sync + 'static {
     fn icon(&self, id: ClientId) -> Icon;
     fn handle_event(&mut self, event: Event) -> bool;
+    fn enable_input(&self, id: ClientId) -> bool;
 }
 
 #[derive(Debug)]

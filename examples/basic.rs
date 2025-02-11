@@ -75,6 +75,10 @@ impl State for Basic {
             (Event::Disconnect { .. }, _) => false,
         }
     }
+
+    fn enable_input(&self, _id: ClientId) -> bool {
+        true
+    }
 }
 
 #[tokio::main]

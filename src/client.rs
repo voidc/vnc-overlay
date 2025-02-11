@@ -204,19 +204,19 @@ impl<S: State> C2SHandler<S> {
                     let click = self.mouse_pressed && !mouse_pressed_new;
                     self.mouse_pressed = mouse_pressed_new;
 
-                    let mut caputured = false;
+                    let mut forward = self.client.state_rx.borrow().enable_input(self.client.id);
                     if click {
                         let icon = self.client.state_rx.borrow().icon(self.client.id);
                         if icon.in_bounds(x, y) {
                             self.client.send_action();
-                            caputured = true;
+                            forward = false;
                         }
                     }
 
-                    if caputured {
-                        None
-                    } else {
+                    if forward {
                         Some(C2S::PointerEvent { button_mask, x, y })
+                    } else {
+                        None
                     }
                 }
 
